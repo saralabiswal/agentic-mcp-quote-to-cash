@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Factory that selects concrete MCP adapters from runtime provider settings."""
 from __future__ import annotations
 
 from functools import lru_cache
@@ -28,6 +29,8 @@ from mcp.interfaces.sub_interface import AbstractSubServer
 
 
 class ConfigurationError(ValueError):
+    """Raised when runtime stack configuration cannot be mapped to an adapter."""
+
     pass
 
 
@@ -35,10 +38,14 @@ InstallBaseAdapter = OracleInstallBaseMCP | SalesforceAssetMCP | ServiceNowCMDBM
 
 
 class MCPFactory:
+    """Create the concrete adapter for each configured commercial-system slot."""
+
     def __init__(self, settings: Settings) -> None:
+        """Store the runtime provider settings used for adapter selection."""
         self.settings = settings
 
     def get_crm_server(self) -> AbstractCRMServer:
+        """Return the selected CRM MCP adapter."""
         adapters: dict[CRMProvider, type[AbstractCRMServer]] = {
             CRMProvider.SALESFORCE: SalesforceMCP,
             CRMProvider.DYNAMICS: DynamicsMCP,
@@ -47,9 +54,11 @@ class MCPFactory:
         return adapters[self.settings.crm_provider](self.settings)
 
     def get_cpq_server(self) -> AbstractCPQServer:
+        """Return the Oracle CPQ adapter, which is always present in this app."""
         return OracleCPQMCP(self.settings)
 
     def get_oms_server(self) -> AbstractOMSServer:
+        """Return the selected Order Management Systems MCP adapter."""
         adapters: dict[OMSProvider, type[AbstractOMSServer]] = {
             OMSProvider.ORACLE_FOM: OracleFOMMCP,
             OMSProvider.SALESFORCE_OMS: SalesforceOMSMCP,
@@ -60,6 +69,7 @@ class MCPFactory:
         return adapters[self.settings.oms_provider](self.settings)
 
     def get_sub_server(self) -> AbstractSubServer:
+        """Return the selected Subscription Management MCP adapter."""
         adapters: dict[SubProvider, type[AbstractSubServer]] = {
             SubProvider.ORACLE_SUBSCRIPTION: OracleSubMCP,
             SubProvider.ZUORA_SUB: ZuoraSubMCP,
@@ -69,6 +79,7 @@ class MCPFactory:
         return adapters[self.settings.sub_provider](self.settings)
 
     def get_install_base_server(self) -> InstallBaseAdapter:
+        """Return the selected Install Base or asset-footprint MCP adapter."""
         adapters: dict[InstallBaseProvider, type[InstallBaseAdapter]] = {
             InstallBaseProvider.ORACLE_INSTALL_BASE: OracleInstallBaseMCP,
             InstallBaseProvider.SALESFORCE_ASSET: SalesforceAssetMCP,
@@ -79,4 +90,5 @@ class MCPFactory:
 
 @lru_cache(maxsize=1)
 def get_factory(settings: Settings) -> MCPFactory:
+    """Return a cached factory for dependency-injected call sites."""
     return MCPFactory(settings)

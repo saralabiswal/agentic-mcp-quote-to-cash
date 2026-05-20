@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for cpq adapter behavior."""
 from __future__ import annotations
 
 import pytest

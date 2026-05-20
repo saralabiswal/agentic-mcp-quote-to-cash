@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""FastAPI application bootstrap with router registration, CORS, and audit-store lifecycle wiring."""
 from __future__ import annotations
 
 from collections.abc import AsyncIterator
@@ -14,6 +15,7 @@ from audit.audit_store import AuditStore
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    """Initialize audit persistence for the FastAPI application lifecycle."""
     runtime_settings = get_runtime_settings().current
     store = AuditStore(runtime_settings.database_url)
     await store.init()

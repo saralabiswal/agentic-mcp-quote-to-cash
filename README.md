@@ -183,8 +183,15 @@ mcp/                 Base MCP server, interfaces, factory, 16 adapter implementa
 seed_data/           Demo fixtures for CRM, orders, subscription, activities, install base
 tests/               Unit/API tests with 80% coverage gate
 ui/                  React + Vite + TypeScript decision-support app
-docs/planning/       Original architecture, task, agent, and business-problem source docs
+docs/                Tracked architecture and developer walkthrough docs
 ```
+
+## Developer Documentation
+
+| Document | Purpose |
+|---|---|
+| `docs/architecture.md` | Enterprise architecture reference for runtime components, adapter strategy, context assembly, decisioning, audit, UI, and productionization boundaries. |
+| `docs/developer-flow-walkthrough.md` | Code-oriented walkthrough from UI action to FastAPI router, runtime settings, MCP adapters, context assembly, decision agent, audit persistence, and UI rendering. |
 
 ## Quick Start
 

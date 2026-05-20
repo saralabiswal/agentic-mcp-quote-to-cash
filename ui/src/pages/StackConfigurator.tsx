@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Scenario and Vendor Stack page for selecting demo stories and runtime provider combinations. */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PageId, Scenario } from '../App';
 import { apiGet, apiPost, DemoResult, Readiness, StackSettings } from '../api/client';

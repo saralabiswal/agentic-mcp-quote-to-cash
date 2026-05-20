@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for decision agent behavior."""
 from __future__ import annotations
 
 from decimal import Decimal

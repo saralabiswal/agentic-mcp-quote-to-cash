@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Audit Trail page that groups persisted decision runs and exposes evidence. */
 import { useEffect, useMemo, useState } from 'react';
 import { PageId, Scenario } from '../App';
 import { AgentDecision, apiGet, apiPost } from '../api/client';

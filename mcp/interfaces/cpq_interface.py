@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Abstract MCP interface contract for CPQ adapters."""
 from __future__ import annotations
 
 from abc import abstractmethod

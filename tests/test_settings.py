@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for settings behavior."""
 from __future__ import annotations
 
 from api.dependencies import RuntimeSettings, Settings

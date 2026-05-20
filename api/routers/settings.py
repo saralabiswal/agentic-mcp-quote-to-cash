@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Settings API router for runtime stack selection and adapter readiness checks."""
 from __future__ import annotations
 
 from time import perf_counter
@@ -15,16 +16,19 @@ router = APIRouter()
 
 @router.get("/settings")
 async def get_settings() -> dict[str, Any]:
+    """Return current runtime provider, guardrail, and storage settings."""
     return get_runtime_settings().current.model_dump(mode="json")
 
 
 @router.post("/settings")
 async def update_settings(payload: dict[str, Any]) -> dict[str, Any]:
+    """Apply runtime stack-selection changes from the UI."""
     return get_runtime_settings().update(**payload).model_dump(mode="json")
 
 
 @router.get("/readiness")
 async def readiness() -> list[dict[str, object]]:
+    """Exercise each adapter path and return status plus latency metadata."""
     runtime = get_runtime_settings().current
     checks: list[tuple[str, str, Any]] = []
     for crm_provider in CRMProvider:

@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Runtime settings and mutable in-process stack configuration used by API routers and adapters."""
 from __future__ import annotations
 
 from functools import lru_cache
@@ -10,6 +11,8 @@ from context.models import AppMode, CRMProvider, InstallBaseProvider, OMSProvide
 
 
 class Settings(BaseSettings):
+    """Environment-backed configuration for adapters, guardrails, and storage."""
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     crm_provider: CRMProvider = CRMProvider.SALESFORCE
@@ -68,29 +71,42 @@ class Settings(BaseSettings):
     approval_discount_threshold: float = 0.10
 
     def with_overrides(self, **overrides: object) -> Self:
+        """Return a validated copy with runtime overrides applied."""
         data = self.model_dump()
         data.update(overrides)
         return self.__class__.model_validate(data)
 
 
 class RuntimeSettings:
+    """Mutable in-process settings wrapper used by the demo UI.
+
+    Production deployments would usually replace this with tenant-aware config
+    storage. For this reference app, it lets `/settings` switch vendors without
+    restarting the FastAPI server.
+    """
+
     def __init__(self, settings: Settings) -> None:
+        """Seed runtime settings from the environment-derived baseline."""
         self._settings = settings
 
     @property
     def current(self) -> Settings:
+        """Return the current effective runtime settings."""
         return self._settings
 
     def update(self, **overrides: object) -> Settings:
+        """Apply validated runtime overrides and return the new settings."""
         self._settings = self._settings.with_overrides(**overrides)
         return self._settings
 
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
+    """Load and cache process-level settings from `.env` and defaults."""
     return Settings()
 
 
 @lru_cache(maxsize=1)
 def get_runtime_settings() -> RuntimeSettings:
+    """Return the mutable runtime settings container used by API routers."""
     return RuntimeSettings(get_settings())

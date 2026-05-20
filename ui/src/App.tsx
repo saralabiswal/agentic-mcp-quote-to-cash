@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Application shell that coordinates the executive walkthrough pages and active demo scenario state. */
 import { useMemo, useState } from 'react';
 import {
   Activity,

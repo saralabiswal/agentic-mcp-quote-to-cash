@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""MCP adapter module for the Salesforce Asset source-system provider."""
 from __future__ import annotations
 
 from typing import Any, cast

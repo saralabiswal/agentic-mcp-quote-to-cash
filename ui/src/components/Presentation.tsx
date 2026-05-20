@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Reusable presentation primitives for status chips, sections, metric grids, and action buttons. */
 import {
   Activity,
   AlertTriangle,

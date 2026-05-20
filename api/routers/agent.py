@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Agent API router for assembling context, running decisions, and persisting decision evidence."""
 from __future__ import annotations
 
 from typing import cast
@@ -15,11 +16,14 @@ router = APIRouter()
 
 
 class AgentRunRequest(BaseModel):
+    """Request body for running the decision agent for an account."""
+
     account_id: str
 
 
 @router.post("/agent/run")
 async def run_agent(payload: AgentRunRequest, request: Request) -> AgentDecision:
+    """Assemble context, run the decision agent, and persist both records."""
     settings = get_runtime_settings().current
     context = await ContextAssembler(settings).assemble(payload.account_id)
     decision = DecisionAgent(
@@ -34,5 +38,6 @@ async def run_agent(payload: AgentRunRequest, request: Request) -> AgentDecision
 
 @router.get("/agent/runs")
 async def list_agent_runs(request: Request) -> list[dict[str, object]]:
+    """Return persisted agent decisions for the audit trail page."""
     store = cast(AuditStore, request.app.state.audit_store)
     return await store.get_agent_runs()

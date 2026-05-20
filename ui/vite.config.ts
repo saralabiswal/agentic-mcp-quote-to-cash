@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Vite configuration for the React decision-support frontend. */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 

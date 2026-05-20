@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for mcp factory behavior."""
 from __future__ import annotations
 
 from api.dependencies import Settings

@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Logical Architecture page that renders the end-to-end runtime diagram. */
 import { PageId } from '../App';
 import { PageHeader } from '../components/Presentation';
 

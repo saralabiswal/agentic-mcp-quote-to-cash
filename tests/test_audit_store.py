@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for audit store behavior."""
 from __future__ import annotations
 
 import pytest

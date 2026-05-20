@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for adapters behavior."""
 from __future__ import annotations
 
 import pytest

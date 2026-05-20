@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Decision Cockpit page that runs decisions and explains risk, pricing, and governance flags. */
 import { useEffect, useState } from 'react';
 import { PageId, Scenario } from '../App';
 import { AgentDecision, apiPost, DemoResult } from '../api/client';

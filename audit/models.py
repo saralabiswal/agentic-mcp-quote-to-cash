@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""SQLAlchemy table models for context, conflict, source-call, and agent-run audit records."""
 from __future__ import annotations
 
 from datetime import datetime

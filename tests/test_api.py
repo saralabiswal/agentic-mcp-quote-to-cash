@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Tests for api behavior."""
 from __future__ import annotations
 
 from fastapi.testclient import TestClient

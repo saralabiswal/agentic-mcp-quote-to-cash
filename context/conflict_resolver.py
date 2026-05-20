@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Conflict-resolution module for choosing canonical values when source systems disagree."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -10,7 +11,10 @@ from context.models import ConflictResolution
 
 @dataclass(frozen=True)
 class ConflictResolver:
+    """Apply deterministic source-of-truth rules to normalized context parts."""
+
     def resolve(self, context_parts: dict[str, Any]) -> tuple[dict[str, Any], list[ConflictResolution]]:
+        """Resolve known conflicts and return the updated parts plus audit evidence."""
         resolutions: list[ConflictResolution] = []
         self._resolve_account_value(context_parts, resolutions)
         self._resolve_renewal_date(context_parts, resolutions)
@@ -34,6 +38,7 @@ class ConflictResolver:
         context_parts: dict[str, Any],
         resolutions: list[ConflictResolution],
     ) -> None:
+        """Use the highest available account value when candidates are present."""
         candidates = context_parts.get("account_candidates")
         if not candidates:
             return
@@ -58,6 +63,7 @@ class ConflictResolver:
         context_parts: dict[str, Any],
         resolutions: list[ConflictResolution],
     ) -> None:
+        """Record subscription as authoritative for renewal date conflicts."""
         subscription = context_parts.get("subscription")
         opportunity = context_parts.get("opportunity")
         if subscription is None or opportunity is None:

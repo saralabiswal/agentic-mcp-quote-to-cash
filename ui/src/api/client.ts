@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Typed API client for settings, readiness, context assembly, decision runs, audit history, and demos. */
 const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:8000';
 
 export type StackSettings = {

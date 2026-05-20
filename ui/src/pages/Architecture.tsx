@@ -1,4 +1,5 @@
 /* Author: Sarala Biswal */
+/* Code documentation: Architecture page that explains adapter isolation and canonical decision flow. */
 import { PageId } from '../App';
 import { PageHeader, StatusPill } from '../components/Presentation';
 

@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Deterministic decision agent that turns a UnifiedContext into an auditable renewal recommendation."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -11,6 +12,8 @@ from context.models import Completeness, RecommendedAction, RenewalSignal, RiskT
 
 
 class ExpansionOffer(BaseModel):
+    """Optional expansion recommendation attached to a low-risk renewal."""
+
     model_config = ConfigDict(frozen=True)
     product_id: str
     product_name: str
@@ -19,6 +22,8 @@ class ExpansionOffer(BaseModel):
 
 
 class AgentDecision(BaseModel):
+    """Frozen decision payload returned by the API and stored in audit history."""
+
     model_config = ConfigDict(frozen=True)
     context_run_id: str
     account_id: str
@@ -39,12 +44,23 @@ class AgentDecision(BaseModel):
 
 
 class DecisionAgent:
+    """Deterministic quote-to-cash decision engine.
+
+    The agent deliberately consumes only `UnifiedContext` and canonical
+    `RenewalSignal` data. Vendor-specific differences must be resolved before
+    this layer so pricing and governance behavior remains portable across
+    Salesforce, Dynamics, Oracle, SAP, Zuora, NetSuite, Chargebee, and
+    ServiceNow-backed stacks.
+    """
+
     def __init__(self, min_margin_floor: float = 0.18, approval_discount_threshold: float = 0.10) -> None:
+        """Configure pricing guardrails used by all decisions."""
         self.min_margin_floor = Decimal(str(min_margin_floor))
         self.approval_discount_threshold = approval_discount_threshold
         self.builder = RenewalSignalBuilder()
 
     def decide(self, context: UnifiedContext) -> AgentDecision:
+        """Produce the renewal action, risk, pricing, and audit reasoning."""
         signal = context.renewal_signal or self.builder.build(
             context.subscription,
             context.activities,
@@ -103,9 +119,11 @@ class DecisionAgent:
         )
 
     def _round_money(self, value: Decimal) -> Decimal:
+        """Round monetary output to the nearest hundred for presentation."""
         return (value / Decimal("100")).quantize(Decimal("1"), rounding=ROUND_HALF_UP) * Decimal("100")
 
     def _expansion_offer(self, signal: RenewalSignal, context: UnifiedContext) -> ExpansionOffer | None:
+        """Create an expansion offer only when risk and product eligibility allow it."""
         if signal.upsell_propensity <= 0.65 or not signal.expansion_products:
             return None
         product_id = signal.expansion_products[0]
@@ -120,6 +138,7 @@ class DecisionAgent:
         )
 
     def _decision_flag(self, context: UnifiedContext, signal: RenewalSignal) -> str:
+        """Convert completeness and escalation posture into governance flags."""
         if context.context_completeness == Completeness.PARTIAL:
             return "requires_human_review"
         if context.context_completeness == Completeness.DEGRADED:
@@ -139,6 +158,7 @@ class DecisionAgent:
         expansion_offer: ExpansionOffer | None,
         decision_flag: str,
     ) -> list[str]:
+        """Build human-readable reasoning for the audit trail and UI."""
         return [
             f"Context: {context.crm_provider.value} CRM + {context.oms_provider.value} OMS + {context.sub_provider.value} Sub | completeness: {context.context_completeness.value}",
             f"Missing sources: {context.missing_sources or 'none'}",

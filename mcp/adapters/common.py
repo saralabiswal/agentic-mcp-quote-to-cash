@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Shared adapter base implementations and seed-data mappers for demo-mode MCP calls."""
 from __future__ import annotations
 
 from datetime import UTC, date, datetime

@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Renewal signal builder that scores churn risk and expansion readiness from canonical context facts."""
 from __future__ import annotations
 
 from datetime import date
@@ -21,6 +22,8 @@ from context.models import (
 
 
 class RenewalSignalBuilder:
+    """Translate canonical account context into renewal risk and upsell signals."""
+
     def build(
         self,
         subscription: CanonicalSubscription | None,
@@ -29,6 +32,7 @@ class RenewalSignalBuilder:
         cpq_products: list[CanonicalProduct],
         account: CanonicalAccount | None = None,
     ) -> RenewalSignal:
+        """Calculate a deterministic `RenewalSignal` for the decision agent."""
         _ = orders, account
         if subscription is None:
             return RenewalSignal(
@@ -71,6 +75,7 @@ class RenewalSignalBuilder:
         )
 
     def _risk_tier(self, risk_score: float) -> RiskTier:
+        """Bucket the normalized risk score into business-readable tiers."""
         if risk_score >= 0.75:
             return RiskTier.CRITICAL
         if risk_score >= 0.50:
@@ -86,6 +91,7 @@ class RenewalSignalBuilder:
         sentiment_component: float,
         risk_score: float,
     ) -> list[ChurnIndicator]:
+        """Explain which underlying signals contributed to churn risk."""
         indicators: list[ChurnIndicator] = []
         if subscription.usage_trend == UsageTrend.CRITICAL:
             indicators.append(ChurnIndicator(indicator_type="usage_critical", severity="high", description=f"Usage at {subscription.usage_health_score:.0%} of baseline - critical level"))
@@ -106,6 +112,7 @@ class RenewalSignalBuilder:
         subscription: CanonicalSubscription,
         cpq_products: list[CanonicalProduct],
     ) -> list[str]:
+        """Find active add-on products compatible with the contracted footprint."""
         return [
             product.product_id
             for product in cpq_products
@@ -120,6 +127,7 @@ class RenewalSignalBuilder:
         expansion_products: list[str],
         risk_tier: RiskTier,
     ) -> float:
+        """Score expansion fit while dampening upsell for critical-risk accounts."""
         if subscription.last_expansion_date is None:
             expansion_boost = 0.2
         else:
@@ -134,6 +142,7 @@ class RenewalSignalBuilder:
         return propensity
 
     def _recommended_action(self, risk_tier: RiskTier, upsell_propensity: float) -> RecommendedAction:
+        """Map risk and expansion fit into the sales motion."""
         if risk_tier == RiskTier.CRITICAL:
             return RecommendedAction.ESCALATE_TO_CSM
         if risk_tier == RiskTier.HIGH and upsell_propensity < 0.40:
@@ -143,6 +152,7 @@ class RenewalSignalBuilder:
         return RecommendedAction.STANDARD_RENEWAL
 
     def _pricing(self, subscription: CanonicalSubscription, risk_tier: RiskTier) -> PricingRecommendation:
+        """Calculate the risk-adjusted renewal price recommendation."""
         multipliers = {
             RiskTier.CRITICAL: Decimal("0.88"),
             RiskTier.HIGH: Decimal("0.93"),

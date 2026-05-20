@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Command-line and API-backed runner for the seven demo scenarios."""
 from __future__ import annotations
 
 import asyncio

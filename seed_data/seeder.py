@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Local bootstrap helper for validating seed data and initializing demo storage."""
 from __future__ import annotations
 
 import json

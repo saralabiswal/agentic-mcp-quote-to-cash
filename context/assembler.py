@@ -1,4 +1,5 @@
 # Author: Sarala Biswal
+"""Context orchestration module that concurrently assembles canonical customer truth from selected adapters."""
 from __future__ import annotations
 
 import asyncio
@@ -24,7 +25,16 @@ from mcp.factory import MCPFactory
 
 
 class ContextAssembler:
+    """Build the canonical commercial context used by the decision agent.
+
+    The assembler is intentionally tolerant of source failures. It fans out to
+    the selected MCP adapters concurrently, records failed sources as missing
+    evidence, and still returns a `UnifiedContext` so the decision layer can
+    apply governance flags instead of crashing the user flow.
+    """
+
     def __init__(self, settings: Settings, factory: MCPFactory | None = None) -> None:
+        """Create an assembler for the current runtime stack selection."""
         self.settings = settings
         self.factory = factory or MCPFactory(settings)
         self.normalizer = Normalizer()
@@ -32,6 +42,12 @@ class ContextAssembler:
         self.validator = ContextValidator()
 
     async def assemble(self, account_id: str, force_refresh: bool = False) -> UnifiedContext:
+        """Assemble context for an account while enforcing the configured timeout.
+
+        `force_refresh` is accepted as part of the public API contract for a
+        future cache-aware implementation. The current implementation always
+        assembles fresh demo/live context.
+        """
         _ = force_refresh
         try:
             return await asyncio.wait_for(
@@ -42,6 +58,7 @@ class ContextAssembler:
             return self._fallback_context(account_id, [f"assembly:{exc.__class__.__name__}"])
 
     async def _assemble_inner(self, account_id: str) -> UnifiedContext:
+        """Run all adapter calls concurrently and normalize successful results."""
         crm = self.factory.get_crm_server()
         cpq = self.factory.get_cpq_server()
         oms = self.factory.get_oms_server()
@@ -132,6 +149,7 @@ class ContextAssembler:
         )
 
     def _fallback_context(self, account_id: str, missing: list[str]) -> UnifiedContext:
+        """Return a degraded context when the account cannot be safely assembled."""
         account = CanonicalAccount(
             canonical_account_id=account_id,
             crm_source=CRMProvider.SALESFORCE,
@@ -157,6 +175,7 @@ class ContextAssembler:
         )
 
     def _coalesce_missing(self, missing: list[str]) -> list[str]:
+        """Collapse low-level failed calls into business source categories."""
         sources: list[str] = []
         if any(name.startswith("crm_") for name in missing):
             sources.append("crm")
@@ -171,6 +190,7 @@ class ContextAssembler:
         return sources
 
     def _attribution(self, parts: dict[str, Any]) -> dict[str, SourceAttribution]:
+        """Attach simple field-level source attribution for normalized parts."""
         return {
             key: SourceAttribution(source=key, field_path=key)
             for key in parts
