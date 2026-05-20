@@ -1,3 +1,4 @@
+/* Author: Sarala Biswal */
 import { useMemo, useState } from 'react';
 import {
   Activity,
@@ -121,6 +122,7 @@ export default function App() {
           <div>
             <strong>Quote-to-Cash MCP</strong>
             <small>Live commercial context</small>
+            <small className="author-line">Author: Sarala Biswal</small>
           </div>
         </div>
 

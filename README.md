@@ -1,3 +1,4 @@
+<!-- Author: Sarala Biswal -->
 # Agentic MCP Quote-to-Cash
 
 Enterprise-grade reference application for **vendor-agnostic quote-to-cash agentic decision support**.

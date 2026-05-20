@@ -1,3 +1,4 @@
+/* Author: Sarala Biswal */
 :root {
   color-scheme: light;
   font-family:
@@ -110,6 +111,13 @@ button {
   color: #a5b4c5;
   font-size: 12px;
   line-height: 1.45;
+}
+
+.brand-block .author-line {
+  margin-top: 3px;
+  color: #dbeafe;
+  font-size: 11px;
+  font-weight: 650;
 }
 
 .scenario-mini {

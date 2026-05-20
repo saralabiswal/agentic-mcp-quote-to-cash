@@ -1,3 +1,4 @@
+# Author: Sarala Biswal
 PYTHON ?= uv run python
 
 .PHONY: install seed dev-api dev-ui demo demo-all test lint docker-up clean

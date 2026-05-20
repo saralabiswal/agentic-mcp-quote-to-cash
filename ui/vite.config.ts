@@ -1,3 +1,4 @@
+/* Author: Sarala Biswal */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 

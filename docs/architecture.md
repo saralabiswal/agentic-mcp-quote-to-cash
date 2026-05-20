@@ -1,3 +1,4 @@
+<!-- Author: Sarala Biswal -->
 # Architecture
 
 This implementation follows the planning architecture:
