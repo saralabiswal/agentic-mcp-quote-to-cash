@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_MODE: demo
+      DATABASE_URL: sqlite+aiosqlite:////data/audit.db
+    volumes:
+      - audit-data:/data
+
+volumes:
+  audit-data:

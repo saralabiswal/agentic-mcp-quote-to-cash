@@ -1,0 +1,6 @@
+{
+  "ACC-001": {"opportunity_id": "OPP-001", "name": "TechCorp Renewal", "type": "renewal", "stage": "negotiation", "amount": "84000", "close_offset_days": 45, "probability": 0.62},
+  "ACC-002": {"opportunity_id": "OPP-002", "name": "GlobalBanking Renewal", "type": "renewal", "stage": "proposal", "amount": "245000", "close_offset_days": 67, "probability": 0.78},
+  "ACC-003": {"opportunity_id": "OPP-003", "name": "MidwestManufacturing Renewal", "type": "renewal", "stage": "negotiation", "amount": "38500", "close_offset_days": 22, "probability": 0.48},
+  "ACC-004": {"opportunity_id": "OPP-004", "name": "RetailCo Save Play Renewal", "type": "renewal", "stage": "qualification", "amount": "128000", "close_offset_days": 52, "probability": 0.41}
+}

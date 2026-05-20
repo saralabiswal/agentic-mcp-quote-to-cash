@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Business Problem & Solution — agentic-mcp-crm-integration</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; max-width: 1100px; margin: 0 auto; }
+h1  { font-size: 22px; font-weight: 800; color: #f1f5f9; margin-bottom: 4px; }
+h2  { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+.sub { font-size: 13px; color: #475569; margin-bottom: 32px; }
+.section { margin-bottom: 32px; }
+.section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+.lbl-problem  { background: #3b1515; color: #f87171; }
+.lbl-why      { background: #3b2800; color: #fbbf24; }
+.lbl-solution { background: #1a3a2a; color: #34d399; }
+.lbl-proof    { background: #1e3a5f; color: #60a5fa; }
+
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.prob-card { background: #1e293b; border: 1px solid #7f1d1d; border-radius: 8px; padding: 16px; }
+.prob-icon { font-size: 24px; margin-bottom: 8px; }
+.prob-title { font-size: 13px; font-weight: 700; color: #f87171; margin-bottom: 6px; }
+.prob-body  { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+.prob-example { margin-top: 10px; padding: 8px 10px; background: #3b1515; border-radius: 5px; font-size: 11px; color: #fca5a5; border-left: 3px solid #f87171; font-style: italic; }
+
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.story-card { background: #1e293b; border-radius: 8px; padding: 16px; }
+.story-card.bad  { border: 1px solid #7f1d1d; }
+.story-card.good { border: 1px solid #14532d; }
+.story-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+.story-card.bad  .story-title { color: #f87171; }
+.story-card.good .story-title { color: #34d399; }
+.story-step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.story-num  { width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bad-num  { background: #3b1515; color: #f87171; }
+.good-num { background: #1a3a2a; color: #34d399; }
+.story-text { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+.story-text strong { color: #f1f5f9; }
+.outcome { margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.outcome.bad  { background: #3b1515; color: #f87171; }
+.outcome.good { background: #1a3a2a; color: #34d399; }
+
+.mcp-diagram { background: #1e293b; border: 1px solid #4c1d95; border-radius: 10px; padding: 20px; }
+.diag-title { font-size: 13px; font-weight: 700; color: #a78bfa; text-align: center; margin-bottom: 18px; }
+.diag-layer { border-radius: 6px; padding: 12px 16px; margin-bottom: 6px; }
+.diag-layer-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; }
+.diag-layer-body  { font-size: 11px; color: #94a3b8; }
+.layer-agent { background: #1e293b; border: 1px solid #475569; }
+.layer-agent .diag-layer-title { color: #e2e8f0; }
+.layer-mcp   { background: #2e1a5e; border: 1px solid #4c1d95; }
+.layer-mcp   .diag-layer-title { color: #c4b5fd; }
+.layer-sys   { background: #0f1117; border: 1px solid #334155; }
+.layer-sys   .diag-layer-title { color: #64748b; }
+.arrow-down  { text-align: center; color: #4c1d95; font-size: 20px; margin: 4px 0; }
+
+.solve-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.solve-card { background: #1e293b; border-radius: 8px; padding: 16px; border-left: 3px solid #34d399; }
+.solve-card h3 { color: #34d399; font-size: 13px; margin-bottom: 6px; }
+.solve-card p  { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+.solve-card .tag { display: inline-block; margin-top: 8px; padding: 3px 9px; background: #1a3a2a; color: #34d399; border-radius: 4px; font-size: 10px; font-weight: 700; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+.metric-card  { background: #1e293b; border-radius: 8px; padding: 16px; text-align: center; border-top: 3px solid; }
+.metric-card.blue   { border-color: #3b82f6; }
+.metric-card.green  { border-color: #34d399; }
+.metric-card.amber  { border-color: #f59e0b; }
+.metric-card.purple { border-color: #a78bfa; }
+.metric-num   { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.metric-card.blue   .metric-num { color: #60a5fa; }
+.metric-card.green  .metric-num { color: #34d399; }
+.metric-card.amber  .metric-num { color: #fbbf24; }
+.metric-card.purple .metric-num { color: #c4b5fd; }
+.metric-label { font-size: 11px; color: #64748b; line-height: 1.4; }
+
+.quote-block { background: #1e293b; border-left: 4px solid #a78bfa; border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 16px; }
+.quote-text  { font-size: 14px; color: #c4b5fd; font-style: italic; line-height: 1.6; }
+.quote-attr  { font-size: 11px; color: #475569; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<h1>Business Problem &amp; Solution</h1>
+<p class="sub">agentic-mcp-crm-integration — Why this exists and what it actually fixes</p>
+
+<!-- PROBLEM -->
+<div class="section">
+  <div class="section-label lbl-problem">The Problem</div>
+  <h2>Enterprise commercial stacks are fragmented across vendor clouds — and AI agents are making decisions on stale data</h2>
+  <div class="problem-grid">
+    <div class="prob-card">
+      <div class="prob-icon">🏝️</div>
+      <div class="prob-title">System Islands</div>
+      <div class="prob-body">Every enterprise runs 3–4 commercial systems — CRM, CPQ, Order Management, Subscriptions — each owned by a different vendor, each in a different cloud, each with its own data model and no real-time connection to the others.</div>
+      <div class="prob-example">"Our Salesforce account data, Oracle CPQ quotes, and Zuora subscriptions have never talked to each other in real time."</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">📸</div>
+      <div class="prob-title">The Snapshot Problem</div>
+      <div class="prob-body">Systems sync via nightly or weekly batch exports. By the time an AI agent runs, the data it's working with is hours or days old. The agent doesn't know what it doesn't know — and it prices and recommends accordingly.</div>
+      <div class="prob-example">"The renewal agent recommended $84K. The customer had already downgraded last Tuesday. Real value: $61K. The agent never saw it."</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">🔌</div>
+      <div class="prob-title">No Vendor-Agnostic Layer</div>
+      <div class="prob-body">Every company uses a different combination of CRM and back-office systems. Building AI agents that work for one stack means rebuilding them entirely when a customer runs a different vendor combination.</div>
+      <div class="prob-example">"We built the renewal agent for Salesforce customers. Our Dynamics customers can't use it. That's 40% of our base."</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIO -->
+<div class="section">
+  <div class="section-label lbl-why">Why It's Hard — A Real Scenario</div>
+  <h2>Same account. Same renewal. Two completely different outcomes based on data freshness.</h2>
+  <div class="story-grid">
+    <div class="story-card bad">
+      <div class="story-title">Without Live Cross-System Context</div>
+      <div class="story-step"><div class="story-num bad-num">1</div><div class="story-text">Renewal agent triggers for <strong>TechCorp Inc</strong> — $2.1M account, renewing in 30 days</div></div>
+      <div class="story-step"><div class="story-num bad-num">2</div><div class="story-text">Agent reads <strong>last night's CRM snapshot</strong>. Sees: account healthy, 600 seats active, no churn flags</div></div>
+      <div class="story-step"><div class="story-num bad-num">3</div><div class="story-text">Agent doesn't know: <strong>3 support escalations this week</strong> in Dynamics. Usage dropped 34% in Subscription system. Neither in snapshot.</div></div>
+      <div class="story-step"><div class="story-num bad-num">4</div><div class="story-text">Agent proposes <strong>$84,000 — full price, no risk adjustment</strong></div></div>
+      <div class="story-step"><div class="story-num bad-num">5</div><div class="story-text">Customer rejects. 3-week escalation. Deal closes at $67K after emergency negotiation.</div></div>
+      <div class="outcome bad">$17K revenue leakage + 3-week cycle delay + damaged relationship</div>
+    </div>
+    <div class="story-card good">
+      <div class="story-title">With Live MCP-Assembled Context</div>
+      <div class="story-step"><div class="story-num good-num">1</div><div class="story-text">Renewal agent triggers for <strong>TechCorp Inc</strong> — same account, same renewal window</div></div>
+      <div class="story-step"><div class="story-num good-num">2</div><div class="story-text">Context assembler calls <strong>all systems via MCP in parallel</strong> — CRM, CPQ, Orders, Subscriptions — live, at decision time</div></div>
+      <div class="story-step"><div class="story-num good-num">3</div><div class="story-text">Agent sees everything: <strong>3 escalations, 34% usage drop, 2 competitor evaluation signals</strong> from live CRM feed</div></div>
+      <div class="story-step"><div class="story-num good-num">4</div><div class="story-text">Renewal risk scored HIGH. Agent proposes <strong>$74,500 with retention bundle</strong> — proactive, not reactive</div></div>
+      <div class="story-step"><div class="story-num good-num">5</div><div class="story-text">Customer accepts in 48 hours. No escalation. No emergency negotiation. Relationship preserved.</div></div>
+      <div class="outcome good">$7.5K optimized — still profitable, risk mitigated, cycle compressed 30%</div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTION -->
+<div class="section">
+  <div class="section-label lbl-solution">The Solution</div>
+  <h2>An MCP integration layer that makes AI agents vendor-agnostic and always context-complete</h2>
+  <div class="mcp-diagram">
+    <div class="diag-title">Three Layers. One Clean Abstraction.</div>
+
+    <div class="diag-layer layer-agent">
+      <div class="diag-layer-title">Decision Agent Layer — vendor-agnostic, always context-complete</div>
+      <div class="diag-layer-body">Renewal Agent · Quote Generation Agent · Risk Scoring Agent. The agent never calls any system directly. It receives a UnifiedAccountProfile — always the same schema, always live data, regardless of which vendors are underneath. Switching the CRM from Salesforce to Dynamics requires zero agent code changes.</div>
+    </div>
+
+    <div class="arrow-down">↕</div>
+
+    <div class="diag-layer layer-mcp">
+      <div class="diag-layer-title">MCP Integration Layer — the abstraction that makes this possible</div>
+      <div class="diag-layer-body" style="margin-bottom:10px">Context Assembler pulls from all systems concurrently via asyncio.gather() · Normalizer maps vendor-specific schemas to canonical UnifiedAccount · Config-driven stack selection: CRM_PROVIDER · ORDER_PROVIDER · SUB_PROVIDER</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="background:#1a1040;color:#a78bfa;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #4c1d95">crm_mcp.py (abstract)</span>
+        <span style="background:#1a1040;color:#a78bfa;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #4c1d95">cpq_mcp.py (Oracle always)</span>
+        <span style="background:#1a1040;color:#a78bfa;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #4c1d95">order_mcp.py (abstract)</span>
+        <span style="background:#1a1040;color:#a78bfa;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #4c1d95">subscription_mcp.py (abstract)</span>
+      </div>
+    </div>
+
+    <div class="arrow-down">↕</div>
+
+    <div class="diag-layer layer-sys">
+      <div class="diag-layer-title">Vendor Adapters — plug in any combination</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px">
+        <div>
+          <div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;margin-bottom:6px">CRM (one of)</div>
+          <div style="font-size:11px;color:#60a5fa;line-height:2">Salesforce CRM<br>MS Dynamics 365<br>Oracle CX Sales</div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;margin-bottom:6px">CPQ (always)</div>
+          <div style="font-size:11px;color:#fbbf24;line-height:2">Oracle CPQ Cloud</div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;margin-bottom:6px">Order Mgmt (one of)</div>
+          <div style="font-size:11px;color:#34d399;line-height:2">Oracle Fusion FOM<br>Salesforce OMS<br>SAP S4HANA · Zuora · NetSuite</div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;margin-bottom:6px">Subscriptions (one of)</div>
+          <div style="font-size:11px;color:#f87171;line-height:2">Oracle Subscription Cloud<br>Zuora · Chargebee<br>Salesforce Revenue Cloud</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT SOLVES -->
+<div class="section">
+  <div class="section-label lbl-solution">What It Solves — Specifically</div>
+  <div class="solve-grid">
+    <div class="solve-card">
+      <h3>Eliminates the Snapshot Problem</h3>
+      <p>Every decision uses live data assembled at runtime via MCP — no batch exports, no stale cache. The agent always knows the current state of the account across all systems simultaneously.</p>
+      <span class="tag">assembler.py — asyncio.gather() across all MCP servers at call time</span>
+    </div>
+    <div class="solve-card">
+      <h3>Makes Agents Truly CRM-Agnostic</h3>
+      <p>The agent never calls Salesforce or Dynamics directly. It calls the abstract CRM interface. Switching a customer from Salesforce to Dynamics is a config change — zero agent code changes required.</p>
+      <span class="tag">CRM_PROVIDER=salesforce | dynamics | oracle_crm</span>
+    </div>
+    <div class="solve-card">
+      <h3>Handles Any Order and Subscription Stack</h3>
+      <p>Works whether the customer uses Oracle FOM or Zuora or SAP for orders. Same for subscriptions. The MCP adapter normalizes every vendor's API to the same canonical schema automatically.</p>
+      <span class="tag">ORDER_PROVIDER · SUB_PROVIDER — fully config-driven</span>
+    </div>
+    <div class="solve-card">
+      <h3>Full Quote-to-Cash Lifecycle</h3>
+      <p>CRM opportunity signal through CPQ pricing and quote generation through order booking through subscription creation and renewal loop — one integration layer covers the entire commercial lifecycle.</p>
+      <span class="tag">CRM → CPQ → Order → Subscription → Renewal → CRM</span>
+    </div>
+    <div class="solve-card">
+      <h3>Every Decision is Auditable</h3>
+      <p>One context_run_id reconstructs which sources were queried, what data came back, how conflicts resolved, and what drove the final decision — required for enterprise AI governance and compliance.</p>
+      <span class="tag">context_audit.py — full source attribution on every run</span>
+    </div>
+    <div class="solve-card">
+      <h3>Graceful Degradation Built In</h3>
+      <p>If one system is unavailable, the platform assembles partial context, flags confidence as PARTIAL, and routes to human review. Production-grade failure handling — not happy-path-only demos.</p>
+      <span class="tag">context_validator.py — completeness check + degraded mode</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF -->
+<div class="section">
+  <div class="section-label lbl-proof">Production Proof</div>
+  <h2>This architecture is not hypothetical — it runs in production today</h2>
+  <div class="quote-block">
+    <div class="quote-text">"The hard part isn't the model — it's the integration layer. I solved the cross-vendor problem in production: unified live context from Salesforce, MS Dynamics, and Oracle clouds so agents make decisions on real data, not snapshots. That combination is what turns AI predictions into revenue outcomes."</div>
+    <div class="quote-attr">— Sarala Biswal, Architect · Production implementation at Oracle · 3,000+ sales users · 600+ enterprise clients · 50+ countries</div>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card blue"><div class="metric-num">30%</div><div class="metric-label">Renewal cycle compression — proposal to close, across 600+ enterprise clients</div></div>
+    <div class="metric-card green"><div class="metric-num">28%</div><div class="metric-label">Quote processing efficiency — eliminated manual margin review bottlenecks</div></div>
+    <div class="metric-card amber"><div class="metric-num">3,000+</div><div class="metric-label">Active sales users on this integration layer across 50+ countries</div></div>
+    <div class="metric-card purple"><div class="metric-num">5+</div><div class="metric-label">Vendor systems unified into one live context layer in production</div></div>
+  </div>
+</div>
+
+<!-- WHO -->
+<div class="section">
+  <div class="section-label lbl-proof">Who This Is For</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    <div style="background:#1e293b;border-radius:8px;padding:16px;border:1px solid #334155">
+      <div style="font-size:13px;font-weight:700;color:#60a5fa;margin-bottom:8px">AI Platform Engineers</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6">Building agentic systems that need to act on live enterprise data across multiple vendor systems — this is the reference architecture for the integration layer.</div>
+    </div>
+    <div style="background:#1e293b;border-radius:8px;padding:16px;border:1px solid #334155">
+      <div style="font-size:13px;font-weight:700;color:#34d399;margin-bottom:8px">Revenue and GTM Platform Teams</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6">Teams building AI-powered CPQ, renewal automation, or quote generation who are blocked by the cross-system integration problem — use this pattern to unblock.</div>
+    </div>
+    <div style="background:#1e293b;border-radius:8px;padding:16px;border:1px solid #334155">
+      <div style="font-size:13px;font-weight:700;color:#fbbf24;margin-bottom:8px">Engineering Leaders Evaluating MCP</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6">Evaluating MCP for enterprise integration — this shows a full production-grade implementation with real business context, not a toy demo.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

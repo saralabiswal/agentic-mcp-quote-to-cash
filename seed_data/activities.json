@@ -1,0 +1,21 @@
+{
+  "ACC-001": [
+    {"activity_id": "ACT-001-1", "activity_type": "meeting", "offset_days": -12, "subject": "Renewal review", "description": "Customer raised adoption concerns", "sentiment": "negative"},
+    {"activity_id": "ACT-001-2", "activity_type": "case", "offset_days": -20, "subject": "Escalation", "description": "Integration delay escalated", "sentiment": "negative"},
+    {"activity_id": "ACT-001-3", "activity_type": "email", "offset_days": -44, "subject": "Usage report", "description": "Usage continues lower than baseline", "sentiment": "neutral"}
+  ],
+  "ACC-002": [
+    {"activity_id": "ACT-002-1", "activity_type": "meeting", "offset_days": -10, "subject": "Executive business review", "description": "Positive adoption and expansion interest", "sentiment": "positive"},
+    {"activity_id": "ACT-002-2", "activity_type": "email", "offset_days": -28, "subject": "Security review", "description": "Procurement timeline confirmed", "sentiment": "positive"}
+  ],
+  "ACC-003": [
+    {"activity_id": "ACT-003-1", "activity_type": "case", "offset_days": -5, "subject": "Production outage", "description": "Escalated outage impacting plant", "sentiment": "negative"},
+    {"activity_id": "ACT-003-2", "activity_type": "case", "offset_days": -16, "subject": "Support escalation", "description": "Customer dissatisfied with response", "sentiment": "negative"},
+    {"activity_id": "ACT-003-3", "activity_type": "meeting", "offset_days": -27, "subject": "Save meeting", "description": "Renewal at risk", "sentiment": "negative"}
+  ],
+  "ACC-004": [
+    {"activity_id": "ACT-004-1", "activity_type": "meeting", "offset_days": -8, "subject": "Executive churn review", "description": "Customer paused expansion until adoption recovers", "sentiment": "negative"},
+    {"activity_id": "ACT-004-2", "activity_type": "case", "offset_days": -18, "subject": "Store rollout friction", "description": "Regional teams report enablement gaps", "sentiment": "negative"},
+    {"activity_id": "ACT-004-3", "activity_type": "email", "offset_days": -33, "subject": "Procurement concern", "description": "Procurement requested save-play pricing options", "sentiment": "negative"}
+  ]
+}

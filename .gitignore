@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+audit.db
+ui/.npm-cache/
+ui/dist/
+ui/node_modules/

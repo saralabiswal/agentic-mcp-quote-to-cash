@@ -1,0 +1,17 @@
+{
+  "ACC-001": [
+    {"order_id": "ORD-001-A", "order_number": "1001", "order_type": "new", "status": "fulfilled", "ordered_offset_days": -320, "total_amount": "60000", "line_items": [{"product_id": "P-ENT-CORE", "product_name": "EnterpriseCore", "quantity": 1, "unit_price": "60000", "line_amount": "60000"}]},
+    {"order_id": "ORD-001-B", "order_number": "1002", "order_type": "expansion", "status": "fulfilled", "ordered_offset_days": -540, "total_amount": "12000", "line_items": [{"product_id": "P-API", "product_name": "APIAccess", "quantity": 1, "unit_price": "12000", "line_amount": "12000"}]}
+  ],
+  "ACC-002": [
+    {"order_id": "ORD-002-A", "order_number": "2001", "order_type": "new", "status": "fulfilled", "ordered_offset_days": -298, "total_amount": "215000", "line_items": [{"product_id": "P-ENT-CORE", "product_name": "EnterpriseCore", "quantity": 3, "unit_price": "60000", "line_amount": "180000"}, {"product_id": "P-SEC", "product_name": "SecurityBundle", "quantity": 2, "unit_price": "18000", "line_amount": "36000"}]},
+    {"order_id": "ORD-002-B", "order_number": "2002", "order_type": "expansion", "status": "fulfilled", "ordered_offset_days": -730, "total_amount": "24000", "line_items": [{"product_id": "P-ANALYTICS", "product_name": "AnalyticsPro", "quantity": 1, "unit_price": "24000", "line_amount": "24000"}]}
+  ],
+  "ACC-003": [
+    {"order_id": "ORD-003-A", "order_number": "3001", "order_type": "new", "status": "fulfilled", "ordered_offset_days": -343, "total_amount": "38500", "line_items": [{"product_id": "P-MM-SUITE", "product_name": "MidMarketSuite", "quantity": 1, "unit_price": "38500", "line_amount": "38500"}]}
+  ],
+  "ACC-004": [
+    {"order_id": "ORD-004-A", "order_number": "4001", "order_type": "new", "status": "fulfilled", "ordered_offset_days": -313, "total_amount": "110000", "line_items": [{"product_id": "P-ENT-CORE", "product_name": "EnterpriseCore", "quantity": 1, "unit_price": "60000", "line_amount": "60000"}, {"product_id": "P-ANALYTICS", "product_name": "AnalyticsPro", "quantity": 1, "unit_price": "24000", "line_amount": "24000"}, {"product_id": "P-SEC", "product_name": "SecurityBundle", "quantity": 1, "unit_price": "18000", "line_amount": "18000"}, {"product_id": "P-SUPPORT", "product_name": "SupportPremium", "quantity": 1, "unit_price": "8000", "line_amount": "8000"}]},
+    {"order_id": "ORD-004-B", "order_number": "4002", "order_type": "change", "status": "submitted", "ordered_offset_days": -21, "total_amount": "0", "line_items": [{"product_id": "P-TRAIN", "product_name": "TrainingBundle", "quantity": 1, "unit_price": "0", "line_amount": "0"}]}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "ACC-001": [
+    {"contact_id": "CON-001-A", "full_name": "Priya Raman", "email": "priya@techcorp.example", "title": "CFO", "role": "economic_buyer", "is_primary": true},
+    {"contact_id": "CON-001-B", "full_name": "Noah Brooks", "email": "noah@techcorp.example", "title": "VP Engineering", "role": "technical_evaluator", "is_primary": false}
+  ],
+  "ACC-002": [
+    {"contact_id": "CON-002-A", "full_name": "Elena Martin", "email": "elena@globalbank.example", "title": "COO", "role": "economic_buyer", "is_primary": true},
+    {"contact_id": "CON-002-B", "full_name": "Samir Patel", "email": "samir@globalbank.example", "title": "Security Architect", "role": "technical_evaluator", "is_primary": false}
+  ],
+  "ACC-003": [
+    {"contact_id": "CON-003-A", "full_name": "Grace Miller", "email": "grace@midwest.example", "title": "CEO", "role": "economic_buyer", "is_primary": true},
+    {"contact_id": "CON-003-B", "full_name": "Luis Ortega", "email": "luis@midwest.example", "title": "Plant Systems Lead", "role": "technical_evaluator", "is_primary": false}
+  ],
+  "ACC-004": [
+    {"contact_id": "CON-004-A", "full_name": "Mara Wilson", "email": "mara@retailco.example", "title": "CFO", "role": "economic_buyer", "is_primary": true},
+    {"contact_id": "CON-004-B", "full_name": "Tomas Reed", "email": "tomas@retailco.example", "title": "VP Store Operations", "role": "technical_evaluator", "is_primary": false}
+  ]
+}

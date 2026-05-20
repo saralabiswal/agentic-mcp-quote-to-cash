@@ -1,0 +1,66 @@
+{
+  "ACC-001": {
+    "canonical": {
+      "canonical_account_id": "ACC-001",
+      "name": "TechCorp Inc",
+      "industry": "Software",
+      "segment": "enterprise",
+      "account_value": "84000",
+      "employee_count": 1400,
+      "region": "US",
+      "health_score": 0.52,
+      "owner_name": "Avery Chen"
+    },
+    "salesforce": {"Id": "SF-ACC-001", "AccountNumber": "ACC-001", "Name": "TechCorp Inc", "Industry": "Software", "AnnualRevenue": "84000", "NumberOfEmployees": 1400, "BillingCountry": "US", "OwnerName": "Avery Chen"},
+    "dynamics": {"accountid": "DYN-ACC-001", "accountnumber": "ACC-001", "name": "TechCorp Inc", "industrycode": 1, "revenue": "84000", "numberofemployees": 1400, "address1_country": "US", "ownerid": "Avery Chen"},
+    "oracle_crm": {"PartyId": "OCX-ACC-001", "AccountNumber": "ACC-001", "PartyName": "TechCorp Inc", "IndustryCode": "SW", "AnnualRevenue": "84000", "EmployeeCount": 1400, "PrimaryAddress": {"Country": "US"}, "OwnerName": "Avery Chen"}
+  },
+  "ACC-002": {
+    "canonical": {
+      "canonical_account_id": "ACC-002",
+      "name": "GlobalBanking Corp",
+      "industry": "Financial Services",
+      "segment": "enterprise",
+      "account_value": "245000",
+      "employee_count": 8200,
+      "region": "US",
+      "health_score": 0.87,
+      "owner_name": "Maya Singh"
+    },
+    "salesforce": {"Id": "SF-ACC-002", "AccountNumber": "ACC-002", "Name": "GlobalBanking Corp", "Industry": "Financial Services", "AnnualRevenue": "245000", "NumberOfEmployees": 8200, "BillingCountry": "US", "OwnerName": "Maya Singh"},
+    "dynamics": {"accountid": "DYN-ACC-002", "accountnumber": "ACC-002", "name": "GlobalBanking Corp", "industrycode": 2, "revenue": "245000", "numberofemployees": 8200, "address1_country": "US", "ownerid": "Maya Singh"},
+    "oracle_crm": {"PartyId": "OCX-ACC-002", "AccountNumber": "ACC-002", "PartyName": "GlobalBanking Corp", "IndustryCode": "FS", "AnnualRevenue": "245000", "EmployeeCount": 8200, "PrimaryAddress": {"Country": "US"}, "OwnerName": "Maya Singh"}
+  },
+  "ACC-003": {
+    "canonical": {
+      "canonical_account_id": "ACC-003",
+      "name": "MidwestManufacturing",
+      "industry": "Manufacturing",
+      "segment": "mid_market",
+      "account_value": "38500",
+      "employee_count": 480,
+      "region": "US",
+      "health_score": 0.34,
+      "owner_name": "Jordan Lee"
+    },
+    "salesforce": {"Id": "SF-ACC-003", "AccountNumber": "ACC-003", "Name": "MidwestManufacturing", "Industry": "Manufacturing", "AnnualRevenue": "38500", "NumberOfEmployees": 480, "BillingCountry": "US", "OwnerName": "Jordan Lee"},
+    "dynamics": {"accountid": "DYN-ACC-003", "accountnumber": "ACC-003", "name": "MidwestManufacturing", "industrycode": 3, "revenue": "38500", "numberofemployees": 480, "address1_country": "US", "ownerid": "Jordan Lee"},
+    "oracle_crm": {"PartyId": "OCX-ACC-003", "AccountNumber": "ACC-003", "PartyName": "MidwestManufacturing", "IndustryCode": "MFG", "AnnualRevenue": "38500", "EmployeeCount": 480, "PrimaryAddress": {"Country": "US"}, "OwnerName": "Jordan Lee"}
+  },
+  "ACC-004": {
+    "canonical": {
+      "canonical_account_id": "ACC-004",
+      "name": "RetailCo Stores",
+      "industry": "Retail",
+      "segment": "enterprise",
+      "account_value": "128000",
+      "employee_count": 3100,
+      "region": "US",
+      "health_score": 0.44,
+      "owner_name": "Nina Patel"
+    },
+    "salesforce": {"Id": "SF-ACC-004", "AccountNumber": "ACC-004", "Name": "RetailCo Stores", "Industry": "Retail", "AnnualRevenue": "128000", "NumberOfEmployees": 3100, "BillingCountry": "US", "OwnerName": "Nina Patel"},
+    "dynamics": {"accountid": "DYN-ACC-004", "accountnumber": "ACC-004", "name": "RetailCo Stores", "industrycode": 4, "revenue": "128000", "numberofemployees": 3100, "address1_country": "US", "ownerid": "Nina Patel"},
+    "oracle_crm": {"PartyId": "OCX-ACC-004", "AccountNumber": "ACC-004", "PartyName": "RetailCo Stores", "IndustryCode": "RTL", "AnnualRevenue": "128000", "EmployeeCount": 3100, "PrimaryAddress": {"Country": "US"}, "OwnerName": "Nina Patel"}
+  }
+}
