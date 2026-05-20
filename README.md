@@ -9,6 +9,38 @@ The core architectural proof is simple: **vendor selection is configuration, not
 
 This is built for enterprise architects, revenue operations leaders, CPQ transformation teams, integration owners, and AI governance reviewers who need to see how an agent can make a pricing or renewal recommendation from live commercial context without becoming tightly coupled to one vendor stack.
 
+## Business Problem
+
+Quote-to-cash decisions are high-value, time-sensitive, and usually made from fragmented enterprise data. A renewal manager may see customer health in CRM, pricing rules in CPQ, fulfillment status in an Order Management Systems platform, usage and renewal posture in a Subscription Management platform, and actual entitlement footprint in an Install Base or CMDB system. No single system has enough context to safely answer: **Should we renew, discount, escalate, save, expand, or lock the proposal?**
+
+This creates a practical operating problem:
+
+| Business risk | What happens in the enterprise |
+|---|---|
+| Stale snapshot decisions | Teams price renewals from CRM or spreadsheet snapshots that miss live usage decline, escalations, fulfillment issues, or entitlement changes. |
+| Vendor lock-in | AI workflows get hard-coded to one CRM or subscription platform, making stack changes expensive and risky. |
+| Inconsistent decisions | Salesforce, Dynamics, Oracle, SAP, Zuora, NetSuite, Chargebee, and ServiceNow data shapes drive different logic unless they are normalized first. |
+| Missing governance evidence | Revenue, finance, legal, and customer-success reviewers cannot always see why an AI recommendation was made. |
+| Unsafe automation | If one source system is unavailable, an agent may either fail completely or proceed without making the missing context visible. |
+
+The result is slower renewals, inconsistent discounting, weak auditability, and higher churn risk during the exact moment when commercial judgment matters most.
+
+## How This App Solves It
+
+This application demonstrates an enterprise-safe pattern for quote-to-cash agentic decision support:
+
+| Solution capability | How the app implements it |
+|---|---|
+| Live commercial context | `ContextAssembler` gathers CRM, Oracle CPQ, Order Management Systems, Subscription, and Install Base data at decision time. |
+| Vendor-independent integration | `MCPFactory` selects adapters from configuration, so changing Salesforce to Dynamics or Oracle FOM to SAP S/4HANA does not change agent code. |
+| Canonical schema | Vendor payloads are normalized into frozen Pydantic models such as `UnifiedContext`, `CanonicalAccount`, `CanonicalSubscription`, and `CanonicalOrder`. |
+| Resilient source handling | Context assembly uses `asyncio.gather(..., return_exceptions=True)` and returns complete, partial, or degraded context instead of crashing. |
+| Deterministic decisioning | `DecisionAgent` calculates risk tier, recommended action, adjusted price, approval requirement, expansion offer, decision flag, and reasoning steps. |
+| Full audit trail | The app persists context runs and agent decisions so every recommendation can be reviewed and explained. |
+| Presentation-ready flow | The React UI walks stakeholders through the business problem, scenario selection, vendor stack, live context, decision cockpit, audit trail, and logical architecture. |
+
+In short: the app does not try to make every enterprise system identical. It isolates vendor differences in MCP adapters, converts them into one commercial truth contract, and lets the decision agent operate on that contract with transparent governance.
+
 ## Executive Summary
 
 Enterprise revenue teams rarely have one clean system of record. Customer health may live in CRM, quote logic in CPQ, fulfillment in Order Management Systems, renewal posture in a subscription platform, and entitlement reality in an install-base or CMDB system. If an AI agent prices renewals from stale snapshots or a single source, it can miss live churn signals, fulfillment risk, usage decline, escalations, or missing data.
